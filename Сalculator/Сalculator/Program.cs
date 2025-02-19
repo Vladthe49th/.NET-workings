@@ -4,15 +4,15 @@ class Program
 {
     static void Main()
     {
-        Console.WriteLine("Введите выражение (например, 10 + 5):");
+        Console.WriteLine("Enter operation:");
         string input = Console.ReadLine();
 
-        // Разделяем ввод на части по пробелам
+        // Separate input
         string[] parts = input.Split(' ');
 
         if (parts.Length == 3)
         {
-            // Пытаемся преобразовать части в числа
+            // Transform parts into digits
             if (int.TryParse(parts[0], out int num1) && int.TryParse(parts[2], out int num2))
             {
                 string operation = parts[1];
@@ -27,20 +27,17 @@ class Program
                         result = num1 - num2;
                         break;
                     default:
-                        Console.WriteLine("Неподдерживаемая операция. Используйте + или -.");
+                        Console.WriteLine("Invalid operation");
                         return;
                 }
 
-                Console.WriteLine("Результат: " + result);
+                Console.WriteLine("Result: " + result);
             }
             else
             {
-                Console.WriteLine("Ошибка: введены некорректные числа.");
+                Console.WriteLine("Uncorrect numbers.");
             }
         }
-        else
-        {
-            Console.WriteLine("Ошибка: введите выражение в формате 'число операция число' (например, 10 + 5).");
-        }
+       
     }
 }
