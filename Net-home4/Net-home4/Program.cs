@@ -81,7 +81,7 @@ namespace Net_home4
 
                 if (cols1 != rows2)
                 {
-                    throw new Exception("Нельзя перемножить матрицы: число столбцов первой не равно числу строк второй.");
+                    throw new Exception("Can`t multiply matrices: first cols don`t match second rows");
                 }
 
                 int[,] result = new int[rows1, cols2];
@@ -99,54 +99,54 @@ namespace Net_home4
                 return result;
             }
 
-            Console.Write("Введите количество строк матрицы: ");
+            Console.Write("Enter number of matrix rows: ");
             int rows = int.Parse(Console.ReadLine());
-            Console.Write("Введите количество столбцов матрицы: ");
+            Console.Write("Number of cols: ");
             int cols = int.Parse(Console.ReadLine());
 
             int[,] matrix1 = CreateMatrix(rows, cols);
-            Console.WriteLine("Матрица 1:");
+            Console.WriteLine("Matrix 1:");
             PrintMatrix(matrix1);
 
-            Console.WriteLine("\nВыберите операцию:");
-            Console.WriteLine("1 - Умножение на число");
-            Console.WriteLine("2 - Сложение двух матриц");
-            Console.WriteLine("3 - Произведение двух матриц");
+            Console.WriteLine("\nChoose your operation:");
+            Console.WriteLine("1 - Multiply on number: ");
+            Console.WriteLine("2 - Add matrices");
+            Console.WriteLine("3 - Multiply matrices");
             int choice = int.Parse(Console.ReadLine());
 
             if (choice == 1)
             {
-                Console.Write("Введите число для умножения: ");
+                Console.Write("Enter number to multiply on: ");
                 int num = int.Parse(Console.ReadLine());
                 int[,] result = MultiplyByNumber(matrix1, num);
-                Console.WriteLine("Результат умножения:");
+                Console.WriteLine("Multiplication result:");
                 PrintMatrix(result);
             }
             else if (choice == 2)
             {
                 int[,] matrix2 = CreateMatrix(rows, cols);
-                Console.WriteLine("Матрица 2:");
+                Console.WriteLine("Matrix 2:");
                 PrintMatrix(matrix2);
 
                 int[,] result = AddMatrices(matrix1, matrix2);
-                Console.WriteLine("Результат сложения:");
+                Console.WriteLine("Result of addition:");
                 PrintMatrix(result);
             }
             else if (choice == 3)
             {
-                Console.Write("Введите количество строк второй матрицы: ");
+                Console.Write("Enter number of second matrix rows: ");
                 int rows2 = int.Parse(Console.ReadLine());
-                Console.Write("Введите количество столбцов второй матрицы: ");
+                Console.Write("Second matrix cols: ");
                 int cols2 = int.Parse(Console.ReadLine());
 
                 int[,] matrix2 = CreateMatrix(rows2, cols2);
-                Console.WriteLine("Матрица 2:");
+                Console.WriteLine("Matrix 2:");
                 PrintMatrix(matrix2);
 
                 try
                 {
                     int[,] result = MultiplyMatrices(matrix1, matrix2);
-                    Console.WriteLine("Результат умножения:");
+                    Console.WriteLine("Multiplication result:");
                     PrintMatrix(result);
                 }
                 catch (Exception e)
@@ -156,80 +156,8 @@ namespace Net_home4
             }
             else
             {
-                Console.WriteLine("Некорректный выбор.");
+                Console.WriteLine("Wrong choice, now die.");
             }
-
-
-            Console.WriteLine("Введите арифметическое выражение (+ и -):");
-            string input = Console.ReadLine();
-
-            try
-            {
-                // Убираем пробелы
-                input = input.Replace(" ", "");
-
-                // Проверяем корректность ввода
-                if (!IsValidExpression(input))
-                {
-                    Console.WriteLine("Ошибка: некорректное выражение.");
-                    return;
-                }
-
-                // Вычисляем результат
-                int result = EvaluateExpression(input);
-                Console.WriteLine($"Результат: {result}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ошибка: {ex.Message}");
-            }
-        }
-
-        // Проверка корректности выражения (разрешены только цифры, + и -)
-        static bool IsValidExpression(string expression)
-        {
-            return System.Text.RegularExpressions.Regex.IsMatch(expression, @"^-?\d+([\+\-]\d+)*$");
-        }
-
-        // Метод вычисления выражения
-        static int EvaluateExpression(string expression)
-        {
-            int result = 0;
-            int currentNumber = 0;
-            char lastOperator = '+'; // Начинаем с + для первого числа
-            string numberBuffer = "";
-
-            for (int i = 0; i < expression.Length; i++)
-            {
-                char c = expression[i];
-
-                if (char.IsDigit(c))
-                {
-                    numberBuffer += c; // Собираем число в строке
-                }
-
-                if (c == '+' || c == '-' || i == expression.Length - 1)
-                {
-                    if (i == expression.Length - 1 && char.IsDigit(c)) // Последнее число
-                    {
-                        numberBuffer += c;
-                    }
-
-                    if (!string.IsNullOrEmpty(numberBuffer)) // Конвертируем число
-                    {
-                        currentNumber = int.Parse(numberBuffer);
-                        numberBuffer = "";
-                    }
-
-                    if (lastOperator == '+')
-                        result += currentNumber;
-                    else
-                        result -= currentNumber;
-
-                    lastOperator = c;
-                }
-            }
-            return result;
 
         }
     }
