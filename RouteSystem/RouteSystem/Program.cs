@@ -199,7 +199,7 @@ namespace RouteSystem
             bigRoute.AddRoute(route2);
        
 
-            // === Вывод информации ===
+        
 
             Console.WriteLine("=== FULL DELIVERY ROUTE ===");
             Console.WriteLine(bigRoute.Describe());
